@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app-front:
+    container_name: app-front
+    build:
+      context: "./docker/node/local"
+      dockerfile: Dockerfile
+    volumes:
+      - type: bind
+        source: "./app/front"
+        target: "/app"
+    ports:
+      - "3000:5173"
+    working_dir: "/app"
+    tty: true

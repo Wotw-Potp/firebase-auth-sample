@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .c-btn {
+    @apply font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 cursor-pointer;
+  }
+
+  .c-btn.c-btn__sm {
+    @apply px-6 py-3 text-sm rounded-md;
+  }
+
+  .c-tabs__item {
+    @apply flex items-center justify-center px-2 py-4 -mb-px text-gray-700 bg-transparent border-b-2 border-transparent sm:px-4 whitespace-nowrap focus:outline-none text-opacity-70 hover:text-opacity-100 hover:border-gray-400 font-bold;
+  }
+
+  .c-tabs__item.active {
+    @apply text-blue-600 border-blue-500;
+  }
+}
