@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router'
 import { NavLink } from 'react-router-dom'
-import Logo from '../assets/react.svg'
+import AppLogo from '../components/icons/AppLogo'
 import LogoutButton from '../components/utilities/LogoutButton'
 
 const DashboardLayout = () => {
@@ -24,7 +24,7 @@ const DashboardLayout = () => {
         <div className='flex justify-between items-center'>
           <div>
             <NavLink to='home'>
-              <img src={Logo} alt='' />
+              <AppLogo width={45} />
             </NavLink>
           </div>
           <nav>

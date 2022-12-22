@@ -1,3 +1,3 @@
 #!/bin/bash
-docker-compose stop
-docker-compose rm -vf
+docker-compose -f docker-compose.local.yml stop
+docker-compose -f docker-compose.local.yml rm -vf

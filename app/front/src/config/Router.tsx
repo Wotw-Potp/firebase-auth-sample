@@ -1,5 +1,5 @@
 /** react router */
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import PrivateRoute from '../providers/PrivateRouteProvider'
 import PublicRoute from '../providers/PublicRouteProvider'
 /** layouts */
@@ -10,6 +10,7 @@ import Login from '../pages/auth/Login'
 import Register from '../pages/auth/Register'
 import Notfound from '../pages/Notfound'
 import Home from '../pages/Home'
+import Settings from '../pages/settings/Index'
 
 const Router = () => {
   return (
@@ -24,6 +25,7 @@ const Router = () => {
           <Route element={<PrivateRoute />}>
             <Route element={<DashboardLayout />}>
               <Route path='home' element={<Home />} />
+              <Route path='settings' element={<Settings />} />
             </Route>
           </Route>
           <Route path='*' element={<Notfound />} />

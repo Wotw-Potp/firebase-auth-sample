@@ -4,11 +4,27 @@
 
 @layer components {
   .c-btn {
-    @apply font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 cursor-pointer;
+    @apply font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 cursor-pointer px-8 py-4 rounded-md;
   }
 
   .c-btn.c-btn__sm {
-    @apply px-6 py-3 text-sm rounded-md;
+    @apply px-6 py-3 text-sm;
+  }
+
+  .c-btn.c-btn__xs {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .c-btn.--danger {
+    @apply font-bold bg-red-600 hover:bg-red-500 focus:ring-red-400;
+  }
+
+  .c-btn.--cancel {
+    @apply text-gray-700 bg-transparent border border-gray-200 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 hover:bg-gray-100 focus:ring-gray-300 focus:ring-opacity-40;
+  }
+
+  .c-btn:disabled {
+    @apply bg-opacity-50 cursor-not-allowed hover:bg-opacity-50;
   }
 
   .c-tabs__item {
