@@ -19,6 +19,7 @@ const firebaseConfig: FirebaseOptions = import.meta.env.PROD
       appId: import.meta.env.VITE_FIREBASE_APP_ID,
     }
 
-const app = initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig),
+  Auth = getAuth(app)
 
-export const Auth = getAuth(app)
+export default Auth

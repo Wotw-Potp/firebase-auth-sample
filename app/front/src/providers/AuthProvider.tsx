@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 import type { User } from '../@types/auth'
-import { Auth } from '../config/Firebase'
+import Auth from '../config/Firebase'
 
 interface AuthContext {
   user?: User
