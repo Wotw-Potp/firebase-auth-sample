@@ -19,6 +19,8 @@ const firebaseConfig: FirebaseOptions = import.meta.env.PROD
       appId: import.meta.env.VITE_FIREBASE_APP_ID,
     }
 
+console.log(firebaseConfig)
+
 const app = initializeApp(firebaseConfig),
   Auth = getAuth(app)
 
