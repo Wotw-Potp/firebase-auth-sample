@@ -47,7 +47,7 @@ const Login = () => {
   return (
     <>
       <PagingTabs items={AuthPagingTabItems} />
-      <div className='prose'>
+      <div className='prose mx-auto'>
         {errorMsg && (
           <p className='font-bold text-red-600 text-sm mb-4'>{errorMsg}</p>
         )}

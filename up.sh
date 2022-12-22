@@ -1,4 +1,4 @@
 #!/bin/bash
-docker-compose stop
-docker-compose rm -vf
-docker-compose up -d --build
+docker-compose -f docker-compose.local.yml stop
+docker-compose -f docker-compose.local.yml rm -vf
+docker-compose -f docker-compose.local.yml up -d --build

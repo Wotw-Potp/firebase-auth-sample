@@ -43,7 +43,7 @@ const Register = () => {
   return (
     <>
       <PagingTabs items={AuthPagingTabItems}></PagingTabs>
-      <div className='prose'>
+      <div className='prose mx-auto'>
         {errorMsg && (
           <p className='font-bold text-red-600 text-sm mb-4'>{errorMsg}</p>
         )}
@@ -88,7 +88,7 @@ const Register = () => {
             />
           </dd>
         </dl>
-        <div className='flex justify-center'>
+        <div className='text-center mb-6'>
           <button
             className='c-btn c-btn__sm bg-green-600 hover:bg-green-500'
             onClick={submitHandler}
