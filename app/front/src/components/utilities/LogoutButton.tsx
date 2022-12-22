@@ -1,7 +1,7 @@
 import { signOut } from '@firebase/auth'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { Auth } from '../../config/Firebase'
+import Auth from '../../config/Firebase'
 
 const LogoutButton = () => {
   const [isLoading, toggleIsLoading] = useState<boolean>(false),

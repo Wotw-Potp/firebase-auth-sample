@@ -10,7 +10,7 @@ import { User } from '../../@types/auth'
 import LoadingLayer from '../../components/partials/LoadingLayer'
 import PagingTabs from '../../components/utilities/PagingTabs'
 import { AuthPagingTabItems } from '../../config/Consts'
-import { Auth } from '../../config/Firebase'
+import Auth from '../../config/Firebase'
 import { GoogleProvider } from '../../providers/GoogleProvider'
 
 const Login = () => {
