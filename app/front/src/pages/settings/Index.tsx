@@ -204,7 +204,7 @@ const Settings = () => {
                 className='text-lg font-medium leading-6 text-gray-800 capitalize dark:text-white'
                 id='modal-title'
               >
-                Account Delete Comfirmation
+                Account Delete Confirmation
               </h3>
               <p className='mt-4 text-sm text-gray-500 dark:text-gray-400'>
                 Are you sure Deletion your Account ??
