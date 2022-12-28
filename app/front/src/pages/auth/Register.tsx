@@ -43,7 +43,7 @@ const Register = () => {
   return (
     <>
       <PagingTabs items={AuthPagingTabItems}></PagingTabs>
-      <div className='prose mx-auto'>
+      <div className='prose mx-auto max-w-[55ch]'>
         {errorMsg && (
           <p className='font-bold text-red-600 text-sm mb-4'>{errorMsg}</p>
         )}

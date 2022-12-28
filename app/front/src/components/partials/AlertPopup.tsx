@@ -54,7 +54,7 @@ const AlertPopup = ({ text, type }: PopupProps) => {
               Error
             </span>
           )}
-          <p className='text-sm text-gray-600 dark:text-gray-200'>{text}</p>
+          <p className='text-sm text-gray-600 dark:text-gray-200 whitespace-pre-wrap'>{text}</p>
         </div>
       </div>
     </div>

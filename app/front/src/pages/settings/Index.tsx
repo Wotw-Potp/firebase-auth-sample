@@ -6,8 +6,14 @@ import Container from '../../components/partials/Container'
 import { useAuthContext } from '../../providers/AuthProvider'
 import AlertPopup from '../../components/partials/AlertPopup'
 import { PopupProps } from '../../@types/component'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Dialog from '../../components/partials/Dialog'
+import PageHeadTitle from '../../components/utilities/PageHeadTitle'
+import MarkdownEditor, { MDEditorProps } from '@uiw/react-md-editor'
+import RehypeSanitize from 'rehype-sanitize'
+import '@uiw/react-md-editor/markdown-editor.css'
+import '@uiw/react-markdown-preview/markdown.css'
+import { upsertUserProfile } from '../../providers/DatabaseProvider'
 
 const Settings = () => {
   const { user } = useAuthContext(),
@@ -23,15 +29,18 @@ const Settings = () => {
       text: '',
       type: 'success',
     }),
+    [profile, setProfile] = useState<string | undefined>(''),
+    previewOptions: MDEditorProps['previewOptions'] = {
+      rehypePlugins: [[RehypeSanitize]],
+    },
     [isLoading, toggleIsLoading] = useState<boolean>(false),
     [isShowDialog, toggleIsShowDialog] = useState<boolean>(false),
     [isConfirmedAccountDeletion, toggleIsConfirmedAccountDeletion] =
       useState<boolean>(false),
     navigate = useNavigate()
 
-  async function submitHandler() {
-    if (!user || !name || !photoUrl) return
-
+  async function AccountSubmitHandler() {
+    if (!user) return
     toggleIsLoading(true)
 
     await updateProfile(user, {
@@ -88,33 +97,56 @@ const Settings = () => {
       })
   }
 
+  async function profileSubmitHandler() {
+    if (!user || !profile) return
+    toggleIsLoading(true)
+
+    await upsertUserProfile(user.uid, profile)
+      .then(() => {
+        setPopupProps({
+          text: 'Profile updated',
+          type: 'success',
+        })
+      })
+      .catch((err) => {
+        setPopupProps({
+          text: err.message,
+          type: 'danger',
+        })
+      })
+      .finally(() => toggleIsLoading(false))
+  }
+
   return (
     <>
       <Container>
         <Card isSection={true}>
           <div className='prose max-w-full'>
-            <div className='inline-flex items-center gap-4'>
-              <NavLink
-                to='/home'
-                className='rounded border border-slate-100 p-2 inline-block shadow-sm hover:bg-slate-100 hover:shadow-none transition-shadow'
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth={1.5}
-                  stroke='currentColor'
-                  className='w-6 h-6'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M15.75 19.5L8.25 12l7.5-7.5'
+            <PageHeadTitle title='Settings' />
+            <section>
+              <h2>Profile</h2>
+              <div className='lg:px-24 space-y-6'>
+                <div data-color-mode='light'>
+                  <MarkdownEditor
+                    value={profile}
+                    onChange={setProfile}
+                    highlightEnable={false}
+                    preview='live'
+                    previewOptions={previewOptions}
                   />
-                </svg>
-              </NavLink>
-              <h1 className='mb-0'>Settings</h1>
-            </div>
+                </div>
+                <div className='py-4'>
+                  <button
+                    type='button'
+                    className='c-btn c-btn__sm'
+                    onClick={profileSubmitHandler}
+                    disabled={isLoading}
+                  >
+                    save
+                  </button>
+                </div>
+              </div>
+            </section>
             <section>
               <h2>Account</h2>
               <div className='lg:px-24 space-y-6'>
@@ -154,7 +186,7 @@ const Settings = () => {
                   <button
                     type='button'
                     className='c-btn c-btn__sm'
-                    onClick={submitHandler}
+                    onClick={AccountSubmitHandler}
                     disabled={isLoading}
                   >
                     save
@@ -204,7 +236,7 @@ const Settings = () => {
                 className='text-lg font-medium leading-6 text-gray-800 capitalize dark:text-white'
                 id='modal-title'
               >
-                Account Delete Comfirmation
+                Account Delete Confirmation
               </h3>
               <p className='mt-4 text-sm text-gray-500 dark:text-gray-400'>
                 Are you sure Deletion your Account ??

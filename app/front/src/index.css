@@ -4,7 +4,7 @@
 
 @layer components {
   .c-btn {
-    @apply font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 cursor-pointer px-8 py-4 rounded-md;
+    @apply font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 cursor-pointer px-8 py-4 rounded-md no-underline;
   }
 
   .c-btn.c-btn__sm {
@@ -33,5 +33,38 @@
 
   .c-tabs__item.active {
     @apply text-blue-600 border-blue-500;
+  }
+
+  .c-note {
+    @apply relative;
+    z-index: 1;
+  }
+
+  .c-note::before,
+  .c-note::after {
+    position: absolute;
+    bottom: -3px;
+    z-index: -1;
+    width: 70%;
+    height: 50%;
+    background-color: #ddd;
+    content: '';
+    filter: blur(4px);
+  }
+
+  .c-note::before {
+    right: 7px;
+    transform: rotate(5deg);
+  }
+
+  .c-note::after {
+    left: 7px;
+    transform: rotate(-5deg);
+  }
+
+  .c-note .c-note__cnt {
+    @apply relative aspect-square p-8 overflow-y-auto;
+    z-index: 1;
+    background-color: rgb(253, 245, 166);
   }
 }

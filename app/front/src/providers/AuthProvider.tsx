@@ -19,6 +19,10 @@ export function useAuthContext() {
   return useContext(AuthContext)
 }
 
+export function getCurrentUserId(): string {
+  return useAuthContext().user?.uid ?? ''
+}
+
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<User>(),
     [isAuthChecked, toggleIsAuthChecked] = useState<boolean>(false)

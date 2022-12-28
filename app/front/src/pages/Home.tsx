@@ -31,7 +31,7 @@ const Home = () => {
             {user && (
               <>
                 <h2 className='flex items-center'>
-                  <span className='grow'>Your Infomation</span>
+                  <span className='grow'>Your Information</span>
                   <NavLink
                     to='/settings'
                     className='w-8 h-8 rounded-full shrink-0 hover:bg-slate-100 flex items-center justify-center'

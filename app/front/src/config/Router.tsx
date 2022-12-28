@@ -5,12 +5,15 @@ import PublicRoute from '../providers/PublicRouteProvider'
 /** layouts */
 import AuthLayout from '../layouts/AuthLayout'
 import DashboardLayout from '../layouts/DashboardLayout'
+import MemoLayout from '../layouts/MemoLayout'
 /** pages */
 import Login from '../pages/auth/Login'
 import Register from '../pages/auth/Register'
 import Notfound from '../pages/Notfound'
 import Home from '../pages/Home'
 import Settings from '../pages/settings/Index'
+import MemoTop from '../pages/memo/Index'
+import MemoAdd from '../pages/memo/Add'
 
 const Router = () => {
   return (
@@ -26,6 +29,10 @@ const Router = () => {
             <Route element={<DashboardLayout />}>
               <Route path='home' element={<Home />} />
               <Route path='settings' element={<Settings />} />
+              <Route path='memo/*' element={<MemoLayout />}>
+                <Route index element={<MemoTop />} />
+                <Route path='add' element={<MemoAdd />} />
+              </Route>
             </Route>
           </Route>
           <Route path='*' element={<Notfound />} />
