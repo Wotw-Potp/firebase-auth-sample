@@ -1,11 +1,20 @@
+import MDEditor from '@uiw/react-md-editor'
+import '@uiw/react-md-editor/markdown-editor.css'
+import '@uiw/react-markdown-preview/markdown.css'
 import { NavLink } from 'react-router-dom'
 import AlertBar from '../components/partials/AlertBar'
 import Card from '../components/partials/Card'
 import Container from '../components/partials/Container'
 import { useAuthContext } from '../providers/AuthProvider'
+import {
+  getUserProfile,
+  getUserProfileGetterRef,
+} from '../providers/DatabaseProvider'
 
 const Home = () => {
-  const { user } = useAuthContext()
+  const { user } = useAuthContext(),
+    userProfileRef = getUserProfileGetterRef(user?.uid ?? ''),
+    { profile } = getUserProfile(userProfileRef)
 
   return (
     <>
@@ -29,7 +38,7 @@ const Home = () => {
           <div className='prose max-w-full'>
             <h1>Welcome !!</h1>
             {user && (
-              <>
+              <section>
                 <h2 className='flex items-center'>
                   <span className='grow'>Your Information</span>
                   <NavLink
@@ -91,7 +100,18 @@ const Home = () => {
                     </tr>
                   </tbody>
                 </table>
-              </>
+              </section>
+            )}
+            {profile && (
+              <section>
+                <h2>Your Profile</h2>
+                <div
+                  data-color-mode='light'
+                  className='p-6 border border-slate-300 rounded shadow-sm'
+                >
+                  <MDEditor.Markdown source={profile} />
+                </div>
+              </section>
             )}
           </div>
         </Card>

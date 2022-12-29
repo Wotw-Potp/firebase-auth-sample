@@ -1,4 +1,4 @@
-import { database, dbRootRef } from '../config/Firebase'
+import { dbRootRef } from '../config/Firebase'
 import {
   child,
   DatabaseReference,
@@ -46,10 +46,31 @@ async function upsertUserProfile(uid: string, profile: string) {
   return await update(ref, { '/profile': profile })
 }
 
+function getUserProfileGetterRef(uid: string) {
+  return child(getUserRef(uid), 'profile')
+}
+
+function getUserProfile(ref: DatabaseReference | Query) {
+  const [profile, setProfile] = useState<string | undefined>('')
+
+  useEffect(() => {
+    onValue(ref, (snapshot) => {
+      if (snapshot.exists()) {
+        setProfile(snapshot.val())
+      }
+      return off(ref)
+    })
+  }, [ref])
+
+  return { profile }
+}
+
 export {
   getUserMemosRef,
   getUserMemo,
   insertUserMemo,
   getUserRef,
   upsertUserProfile,
+  getUserProfileGetterRef,
+  getUserProfile,
 }

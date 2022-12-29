@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { deleteUser, updateProfile } from '@firebase/auth'
 import { User } from '../../@types/auth'
 import Card from '../../components/partials/Card'
@@ -13,11 +13,17 @@ import MarkdownEditor, { MDEditorProps } from '@uiw/react-md-editor'
 import RehypeSanitize from 'rehype-sanitize'
 import '@uiw/react-md-editor/markdown-editor.css'
 import '@uiw/react-markdown-preview/markdown.css'
-import { upsertUserProfile } from '../../providers/DatabaseProvider'
+import {
+  getUserProfileGetterRef,
+  upsertUserProfile,
+} from '../../providers/DatabaseProvider'
+import { off, onValue } from 'firebase/database'
 
 const Settings = () => {
   const { user } = useAuthContext(),
-    [name, setName] = useState<NonNullable<User['displayName']>>(
+    userProfileRef = getUserProfileGetterRef(user?.uid ?? '')
+  /** states */
+  const [name, setName] = useState<NonNullable<User['displayName']>>(
       user?.displayName ?? ''
     ),
     [photoUrl, setPhotoUrl] = useState<NonNullable<User['photoURL']>>(
@@ -36,8 +42,9 @@ const Settings = () => {
     [isLoading, toggleIsLoading] = useState<boolean>(false),
     [isShowDialog, toggleIsShowDialog] = useState<boolean>(false),
     [isConfirmedAccountDeletion, toggleIsConfirmedAccountDeletion] =
-      useState<boolean>(false),
-    navigate = useNavigate()
+      useState<boolean>(false)
+  /** utilities */
+  const navigate = useNavigate()
 
   async function AccountSubmitHandler() {
     if (!user) return
@@ -116,6 +123,15 @@ const Settings = () => {
       })
       .finally(() => toggleIsLoading(false))
   }
+
+  useEffect(() => {
+    onValue(userProfileRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setProfile(snapshot.val())
+      }
+      return off(userProfileRef)
+    })
+  }, [userProfileRef])
 
   return (
     <>
